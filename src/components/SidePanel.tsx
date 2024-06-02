@@ -1,4 +1,6 @@
 import { forwardRef } from "react"
+import ReactDOM from "react-dom"
+import Backdrop from "./Backdrop"
 
 interface SidePanelProps {
   open: boolean
@@ -7,17 +9,21 @@ interface SidePanelProps {
   children?: React.ReactNode
 }
 
-const SidePanel = forwardRef<HTMLDivElement, SidePanelProps>((props, ref) => {
-  const {
-    open = true,
-    isRight = true,
-    onToggle,
-    children
-  } = props
+const SidePanel = forwardRef<HTMLDivElement, SidePanelProps>(({
+  open = true,
+  isRight = true,
+  onToggle,
+  children
+}, ref) => {
+  if(!open) return null
 
-  return (
-    <div className="absolute min-h-screen">
-      <div ref={ref} className={`fixed top-0 ${isRight ? 'right-0' : 'left-0'} h-full w-64 bg-[#423736] text-white transform ${open ? 'translate-x-0' : (isRight ? 'translate-x-full' : '-translate-x-full')} transition-transform duration-300 z-50`}>
+  return ReactDOM.createPortal(
+    <>
+      <Backdrop
+        isVisible={open}
+        onClick={onToggle}
+      />
+      <div ref={ref} className={`fixed top-0 ${isRight ? 'right-0' : 'left-0'} h-full w-64 bg-[#423736] text-white transform transition-transform ease-in-out duration-500 z-50 ${open ? 'translate-x-0' : (isRight ? 'translate-x-full' : '-translate-x-full')}`}>
         <div className="p-4">
           <div className='flex justify-between items-center'>
             <button
@@ -42,7 +48,8 @@ const SidePanel = forwardRef<HTMLDivElement, SidePanelProps>((props, ref) => {
           {children}
         </div>
       </div>
-    </div>
+    </>,
+    document.getElementById('portal')!
   );
 });
 
