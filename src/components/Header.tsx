@@ -1,25 +1,52 @@
-import { useState } from "react";
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
-function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+const navLinks = [
+  {
+    to: '/',
+    label: 'Home'
+  },
+  {
+    to: '/recipes',
+    label: 'Recipes'
+  },
+  {
+    to: '/about',
+    label: 'About'
+  },
+  {
+    to: '/contact-us',
+    label: 'Contact Us'
+  },
+]
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+interface HeaderProps {
+  onToggleSidePanel: () => void
+}
+
+function Header({ onToggleSidePanel }: HeaderProps) {
+  const location = useLocation()
+
+  const isActive = (path: string) => location.pathname === path
 
   return (
-    <header>
-      <div className="relative bg-cover bg-center h-64 md:h-screen" style={{ backgroundImage: "url('https://via.placeholder.com/1920x1080')" }}>
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 flex items-center justify-center h-full">
-          <h1 className="text-white text-5xl font-bold">Welcome to Just Cook</h1>
+    <>
+      <div
+        className="bg-cover bg-center hidden md:h-96 md:block"
+        style={{ backgroundImage: "url('https://placehold.co/1920x1080')" }}
+      >
+        <div className="flex justify-center items-center h-full">
+          <img
+              src="https://placehold.co/150x150"
+              alt="Just Cook Logo"
+              className="w-40 h-40"
+            />
         </div>
       </div>
-    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center sticky top-0 z-50">
-      <h1 className="text-2xl font-bold">Just Cook</h1>
+
+    <header className="sticky top-0 z-50 bg-[#423736]">
+    <nav className="container mx-auto py-4 px-2 space-x-4 flex md:justify-center justify-end items-center ">
       <div className="md:hidden">
-        <button onClick={toggleMenu} className="text-white focus:outline-none">
+        <button onClick={onToggleSidePanel} className="text-[#f3c70c] focus:outline-none">
           <svg
             className="w-6 h-6"
             fill="none"
@@ -36,16 +63,26 @@ function Header() {
           </svg>
         </button>
       </div>
-      <div className={`md:flex md:items-center ${isOpen ? 'block' : 'hidden'}`}>
+      <div className="md:flex md:items-center justify-center hidden">
         <ul className="flex flex-col md:flex-row md:space-x-4">
-          <li><Link to="/" className="block py-2 px-4 text-white">Home</Link></li>
-          <li><Link to="/recipes" className="block py-2 px-4 text-white">Recipes</Link></li>
-          <li><Link to="/about" className="block py-2 px-4 text-white">About</Link></li>
-          <li><Link to="/contact" className="block py-2 px-4 text-white">Contact</Link></li>
+          {navLinks.map(navLink => {
+            return (
+              <li key={`nav-link_${navLink.label.toLowerCase()}`}>
+                <Link
+                  to={navLink.to} className={`block p-2
+                  ${isActive(navLink.to) ? 'text-yellow-500' : 'text-white'} uppercase
+                  hover:text-yellow-500 font-semibold`}
+                >
+                  {navLink.label}
+                </Link>
+              </li>
+            )
+          })}
         </ul>
       </div>
       </nav>
     </header>
+    </>
   );
 }
 
