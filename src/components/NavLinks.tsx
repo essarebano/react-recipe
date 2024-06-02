@@ -21,12 +21,10 @@ const Links = [
 
 interface NavLinksProps {
   isVertical?: boolean
-  hide?: boolean
 }
 
 function NavLinks({
-  isVertical,
-  hide
+  isVertical
 }: NavLinksProps) {
   const location = useLocation()
 
