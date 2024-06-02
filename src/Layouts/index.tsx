@@ -1,11 +1,14 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
 import SidePanel from "../components/SidePanel"
 import { useEffect, useRef, useState } from "react"
+import Banner from "../components/Banner"
+import NavLink from "../components/NavLinks"
 
 function Layout() {
   const [isToggled, setIsToggled] = useState<boolean>(false)
+  const location = useLocation()
 
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -31,9 +34,16 @@ function Layout() {
     };
   }, [isToggled]);
 
+  useEffect(() => {
+    setIsToggled(false)
+  }, [location])
+
   return (
     <div className="relative flex flex-col min-h-screen bg-gray-100">
-      <Header onToggleSidePanel={handleOnToggleSidePanel} />
+      <Banner />
+      <Header onToggleSidePanel={handleOnToggleSidePanel} >
+        <NavLink />
+      </Header>
       <main className="flex-grow">
         <Outlet />
       </main>
@@ -43,7 +53,9 @@ function Layout() {
         open={isToggled}
         onToggle={handleOnToggleSidePanel}
         isRight
-      />
+      >
+        <NavLink isVertical/>
+      </SidePanel>
     </div>
   )
 }
