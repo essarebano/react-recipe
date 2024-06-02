@@ -8,9 +8,7 @@
 - [ ] Implement display of recipes
 - [ ] Create temporary modal component for viewing recipe details
 - [ ] Add `useReducer` for CRUD functionality
-- [ ] Add `shadcn-ui` components
-- [ ] Update UI with `shadcn-ui` components
-- [ ] Apply mobile responsive styling
+- [X] Apply mobile responsive styling
 
 # Scripts
 
