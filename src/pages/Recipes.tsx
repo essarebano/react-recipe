@@ -1,9 +1,12 @@
 import RecipeContainer from "../containers/RecipeContainer";
+import { RecipeProvider } from "../context/RecipeContext";
 
 function Recipes() {
   return (
     <section className="container mx-auto py-8">
-      <RecipeContainer />
+      <RecipeProvider>
+        <RecipeContainer />
+      </RecipeProvider>
     </section>
   )
 }
