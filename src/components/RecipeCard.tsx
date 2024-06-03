@@ -24,7 +24,9 @@ function RecipeCard({
     <div className="recipe-card flex flex-col md:flex-row items-center mb-8 bg-white shadow-md rounded-lg overflow-hidden m-4">
       <img
         src={image}
-        alt={title.toLowerCase()} className="w-full md:w-1/3 h-48 object-cover"
+        alt={title.toLowerCase()}
+        className="w-full md:w-1/3 h-48 object-cover"
+        loading="lazy"
       />
       <div className="p-4 w-full md:w-2/3 flex flex-col justify-between">
         <div>

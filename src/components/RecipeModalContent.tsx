@@ -14,7 +14,7 @@ function RecipeModalContent({
   return (
     <div className="space-y-4">
       <div className="flex flex-col md:flex-row">
-        <img src={recipe.images.full} alt={recipe.title} className="w-full md:w-1/3 h-auto rounded-lg" />
+        <img src={recipe.images.full} alt={recipe.title} className="w-full md:w-1/3 h-auto rounded-lg" loading="lazy"/>
         <div className="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
           <div>
             <h2 className="text-2xl font-bold mb-2">{recipe.title}</h2>
