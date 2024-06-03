@@ -18,7 +18,7 @@ function Modal({
     <>
       <Backdrop isVisible={isOpen} />
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="bg-white rounded-lg p-6 w-11/12 max-w-4xl relative">
+        <div className="bg-white rounded-lg p-6 w-11/12 max-w-4xl max-h-full overflow-y-auto relative">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none"
@@ -38,7 +38,9 @@ function Modal({
               />
             </svg>
           </button>
-          {children}
+          <div className="mt-6">
+            {children}
+          </div>
         </div>
       </div>
     </>,
